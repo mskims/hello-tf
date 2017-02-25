@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import tensorflow as tf
 
 x_data = [1, 2, 3]
@@ -8,10 +10,14 @@ b = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
 
 hypothesis = W * x_data + b
 
+# (hypothesis - REAL_DATA)n2
+# 예상치와 실제 데이터값의 차이를 계산하는 라인.
 cost = tf.reduce_mean(tf.square(hypothesis - y_data))
 
 a = tf.Variable(0.1)
 optimizer = tf.train.GradientDescentOptimizer(a)
+
+# 기울기와 b값을 최소화 하는 코스트함수
 train = optimizer.minimize(cost)
 
 init = tf.global_variables_initializer()
