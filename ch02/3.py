@@ -8,11 +8,14 @@ y_data = [1, 2, 3]
 W = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
 b = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
 
-hypothesis = W * x_data + b
+X = tf.placeholder(tf.float32)
+Y = tf.placeholder(tf.float32)
+
+hypothesis = W * X + b
 
 # (hypothesis - REAL_DATA)n2
 # 예상치와 실제 데이터값의 차이를 계산하는 라인.
-cost = tf.reduce_mean(tf.square(hypothesis - y_data))
+cost = tf.reduce_mean(tf.square(hypothesis - Y))
 
 a = tf.Variable(0.1)
 optimizer = tf.train.GradientDescentOptimizer(a)
@@ -26,6 +29,11 @@ sess = tf.Session()
 sess.run(init)
 
 for step in range(2001):
-    sess.run(train)
+    sess.run(train, feed_dict={X: x_data, Y: y_data})
     if step % 20 == 0:
-        print(step, sess.run(cost), sess.run(W), sess.run(b))
+        print(step, sess.run(cost, feed_dict={X: x_data, Y: y_data}), sess.run(W), sess.run(b))
+
+
+# Results
+print(sess.run(hypothesis, feed_dict={X: 6}))
+print(sess.run(hypothesis, feed_dict={X: 12}))
