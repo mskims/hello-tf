@@ -18,6 +18,7 @@ hypothesis = W * X + b
 cost = tf.reduce_mean(tf.square(hypothesis - Y))
 
 a = tf.Variable(0.1)
+# 그라디언트를 따라 따라 내려가는 옵티마이저 함수 (학습을 최적화하는 함수)
 optimizer = tf.train.GradientDescentOptimizer(a)
 
 # 기울기와 b값을 최소화 하는 코스트함수
