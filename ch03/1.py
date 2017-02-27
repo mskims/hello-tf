@@ -28,7 +28,7 @@ sess = tf.Session()
 sess.run(init)
 
 for i in range(-30, 50):
-    i *= 0.2
+    i *= 0.1
     print(i, sess.run(cost, feed_dict={W: i}))
     W_val.append(i)
     cost_val.append(sess.run(cost, feed_dict={W: i}))
