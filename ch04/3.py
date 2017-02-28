@@ -22,7 +22,7 @@ train = optimizer.minimize(cost)
 
 init = tf.global_variables_initializer()
 
-# Launch grapth
+# Launch graph
 sess = tf.Session()
 sess.run(init)
 
