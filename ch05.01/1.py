@@ -16,8 +16,10 @@ hypothesis = tf.nn.softmax(tf.matmul(X, W))
 
 # cost = tf.reduce_mean
 cost = tf.reduce_mean(-tf.reduce_sum(Y * tf.log(hypothesis), reduction_indices=1))
+l2reg = 0.001 * tf.reduce_sum(tf.square(W))
+cost = cost + l2reg
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(cost)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
 
 init = tf.global_variables_initializer()
 
@@ -27,7 +29,7 @@ with tf.Session() as sess:
         Y: y_data,
     }
     sess.run(init)
-    for step in xrange(100001):
+    for step in xrange(16001):
         sess.run(optimizer, feed_dict=fd)
         if step % 200 == 0:
             print(step, sess.run(cost, feed_dict=fd), sess.run(W))
